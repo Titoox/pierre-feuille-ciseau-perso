@@ -1,0 +1,41 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  background-color: hsl(237, 48.6%, 14.5%);
+  background-image: radial-gradient(hsl(195, 50%, 26%), hsl(216, 51%, 30%));
+  color: white;
+  text-align: center;
+}
+
+header {
+  width: 45%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  padding: 10px;
+  border-radius: 10px;
+  align-items: center;
+}
+
+#score-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100px;
+  height: 100px;
+  background-color: white;
+  border-radius: 10px;
+  color: black;
+}
+
+#score {
+  justify-content: center;
+}

@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -d \"/Users/titouan/Documents/cours/iut mmi/public_html/pierre feuille ciseau/pierre-feuille-ciseau-perso-main/\"*/)"
+    ]
+  }
+}

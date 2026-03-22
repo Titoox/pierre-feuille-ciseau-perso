@@ -1,0 +1,294 @@
+/* ============================================================
+   VARIABLES
+   ============================================================ */
+:root {
+  --couleur-pierre: hsl(349, 70%, 56%);
+  --couleur-feuille: hsl(230, 89%, 62%);
+  --couleur-ciseaux: hsl(39, 89%, 53%);
+  --bg-dark: hsl(237, 49%, 15%);
+  --bg-card: hsl(229, 25%, 31%);
+  --text-light: hsl(0, 0%, 100%);
+  --shadow-pierre: 0 8px 0 hsl(349, 70%, 40%);
+  --shadow-feuille: 0 8px 0 hsl(230, 89%, 45%);
+  --shadow-ciseaux: 0 8px 0 hsl(39, 89%, 38%);
+  --shadow-icon: 0 8px 0 hsl(220, 20%, 75%);
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  background: radial-gradient(
+    ellipse at top,
+    hsl(195, 50%, 26%),
+    hsl(216, 51%, 20%)
+  );
+  color: var(--text-light);
+  text-align: center;
+}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+header {
+  width: min(45%, 700px);
+  margin: 24px auto 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  padding: 16px 20px;
+  border-radius: 12px;
+}
+
+#score-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  background-color: var(--text-light);
+  border-radius: 10px;
+  color: var(--bg-card);
+}
+
+#texte-score {
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: hsl(229, 25%, 55%);
+}
+
+#score {
+  font-size: 52px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--bg-card);
+}
+
+/* ============================================================
+   ÉCRAN 1 — TRIANGLE DE CHOIX
+   ============================================================ */
+#icones {
+  position: relative;
+  width: 380px;
+  height: 380px;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-image: url("bg-triangle.svg");
+  background-size: 75%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#pierre,
+#feuille,
+#ciseaux {
+  position: absolute;
+  cursor: pointer;
+  background-color: var(--text-light);
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.15s ease;
+}
+
+#pierre img,
+#feuille img,
+#ciseaux img {
+  width: 85px;
+  pointer-events: none;
+}
+
+#pierre:hover,
+#feuille:hover,
+#ciseaux:hover {
+  transform: scale(1.08) translateX(var(--tx, 0));
+}
+
+#ciseaux {
+  top: 0;
+  right: 0;
+  border: 10px solid var(--couleur-ciseaux);
+  box-shadow: var(--shadow-ciseaux);
+}
+
+#feuille {
+  top: 0;
+  left: 0;
+  border: 10px solid var(--couleur-feuille);
+  box-shadow: var(--shadow-feuille);
+}
+
+#pierre {
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 10px solid var(--couleur-pierre);
+  box-shadow: var(--shadow-pierre);
+}
+
+#pierre:hover {
+  transform: translateX(-50%) scale(1.08);
+}
+
+/* ============================================================
+   ÉCRAN 2 — RÉSULTAT DE MANCHE
+   ============================================================ */
+#affichage-choix {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  margin-top: 120px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#choix-joueur,
+#choix-ordi {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+#choix-joueur p,
+#choix-ordi p {
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+  opacity: 0.8;
+}
+
+#icone-joueur,
+#icone-ordi {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: var(--text-light);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#icone-joueur img,
+#icone-ordi img {
+  width: 85px;
+  pointer-events: none;
+}
+
+/* ============================================================
+   ZONE RÉSULTAT
+   ============================================================ */
+#zone-resultat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+#resultat {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  opacity: 0.9;
+}
+
+#resultat-final {
+  font-size: 36px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* ============================================================
+   BOUTON REJOUER
+   ============================================================ */
+#rejouer {
+  display: none;
+  padding: 14px 52px;
+  border-radius: 8px;
+  background-color: var(--text-light);
+  color: var(--bg-card);
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  letter-spacing: 2px;
+  font-weight: 600;
+  text-transform: uppercase;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+#rejouer:hover {
+  background-color: hsl(229, 25%, 85%);
+}
+
+/* ============================================================
+   BOUTON RÈGLES
+   ============================================================ */
+#regles {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  cursor: pointer;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  padding: 12px 28px;
+  border-radius: 8px;
+  color: var(--text-light);
+  background: transparent;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+#regles:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ============================================================
+   CLASSES DE BORDURES COLORÉES
+   ============================================================ */
+.border-pierre {
+  border: 10px solid var(--couleur-pierre);
+  box-shadow: var(--shadow-pierre);
+}
+.border-feuille {
+  border: 10px solid var(--couleur-feuille);
+  box-shadow: var(--shadow-feuille);
+}
+.border-ciseaux {
+  border: 10px solid var(--couleur-ciseaux);
+  box-shadow: var(--shadow-ciseaux);
+}
