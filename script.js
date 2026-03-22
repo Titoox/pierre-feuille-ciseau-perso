@@ -21,18 +21,15 @@ document.getElementById("rejouer").addEventListener("click", rejouer);
 // FONCTION JOUER
 // ============================================================
 function jouer(event) {
-  // 1. Compter la manche et afficher l'écran de résultat
   manches++;
   document.getElementById("icones").style.display = "none";
   document.getElementById("affichage-choix").style.display = "flex";
   document.getElementById("compteur-manches").style.display = "none";
 
-  // 2. Récupérer les choix
   const choixJoueur = event.currentTarget.id;
   const options = ["pierre", "feuille", "ciseaux"];
   const choixOrdinateur = options[Math.floor(Math.random() * 3)];
 
-  // 3. Afficher les icônes
   const icones = {
     pierre: "icon-rock.svg",
     feuille: "icon-paper.svg",
@@ -43,7 +40,6 @@ function jouer(event) {
   document.getElementById("icone-ordi").innerHTML =
     '<img src="' + icones[choixOrdinateur] + '">';
 
-  // Bordures colorées
   const classes = {
     pierre: "border-pierre",
     feuille: "border-feuille",
@@ -52,7 +48,7 @@ function jouer(event) {
   document.getElementById("icone-joueur").className = classes[choixJoueur];
   document.getElementById("icone-ordi").className = classes[choixOrdinateur];
 
-  // 4. Comparer et mettre à jour
+  // Résultat de la manche (sans toucher au score global)
   if (choixJoueur === choixOrdinateur) {
     document.getElementById("resultat").textContent = "Egalite";
   } else if (
@@ -62,18 +58,12 @@ function jouer(event) {
   ) {
     document.getElementById("resultat").textContent = "Gagne !";
     victoiresJoueur++;
-    scoreGlobal++;
   } else {
     document.getElementById("resultat").textContent = "Perdu !";
     victoiresOrdinateur++;
-    scoreGlobal--;
   }
 
-  // Mise a jour score global
-  localStorage.setItem("scoreGlobal", scoreGlobal);
-  document.getElementById("score").textContent = scoreGlobal;
-
-  // 5. Verifier fin de partie (3 manches OU victoire anticipee a 2)
+  // Fin de partie : 3 manches OU victoire anticipée à 2
   const partieTerminee =
     manches === 3 || victoiresJoueur === 2 || victoiresOrdinateur === 2;
 
@@ -82,13 +72,18 @@ function jouer(event) {
 
     if (victoiresJoueur > victoiresOrdinateur) {
       document.getElementById("resultat-final").textContent = "Victoire !";
+      scoreGlobal++;
     } else if (victoiresOrdinateur > victoiresJoueur) {
       document.getElementById("resultat-final").textContent = "Defaite...";
+      scoreGlobal--;
     } else {
       document.getElementById("resultat-final").textContent = "Egalite !";
     }
+
+    // Sauvegarder et afficher le score global
+    localStorage.setItem("scoreGlobal", scoreGlobal);
+    document.getElementById("score").textContent = scoreGlobal;
   } else {
-    // Retour au triangle apres 2 secondes
     setTimeout(function () {
       document.getElementById("icones").style.display = "flex";
       document.getElementById("affichage-choix").style.display = "none";
