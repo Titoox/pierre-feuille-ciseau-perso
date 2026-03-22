@@ -317,36 +317,36 @@ main {
    ============================================================ */
 @media (max-width: 480px) {
   :root {
-    --icon-size: 100px;
-    --icon-img: 58px;
-    --border-size: 7px;
-    --result-size: 100px;
-    --result-img: 58px;
-    --triangle: 260px;
-    --gap-result: 12px;
+    --icon-size: 85px;
+    --icon-img: 50px;
+    --border-size: 6px;
+    --result-size: 85px;
+    --result-img: 50px;
+    --triangle: 230px;
+    --gap-result: 10px;
   }
 
   header {
-    margin-top: 16px;
-    padding: 10px 14px;
+    margin-top: 12px;
+    padding: 8px 12px;
   }
   header img {
-    width: 80px;
+    width: 70px;
   }
   #score-box {
-    width: 68px;
-    height: 68px;
+    width: 60px;
+    height: 60px;
   }
   #texte-score {
-    font-size: 9px;
+    font-size: 8px;
   }
   #score {
-    font-size: 30px;
+    font-size: 26px;
   }
 
   #affichage-choix {
     flex-wrap: wrap;
-    padding: 20px 12px;
+    padding: 16px 10px;
   }
   #zone-resultat {
     order: 3;
@@ -357,20 +357,21 @@ main {
     flex-direction: column-reverse;
   }
   #resultat {
-    font-size: 17px;
+    font-size: 15px;
   }
   #resultat-final {
-    font-size: 26px;
+    font-size: 22px;
+    letter-spacing: 1px;
   }
   #rejouer {
-    padding: 12px 36px;
-    font-size: 13px;
+    padding: 11px 32px;
+    font-size: 12px;
   }
   #regles {
-    padding: 9px 18px;
-    font-size: 11px;
-    bottom: 14px;
-    right: 14px;
+    padding: 8px 16px;
+    font-size: 10px;
+    bottom: 12px;
+    right: 12px;
   }
 }
 
@@ -619,11 +620,9 @@ main {
 #fermer-modal:hover {
   opacity: 1;
 }
-
 #fermer-modal img {
   width: 20px;
 }
-
 #image-regles {
   width: 100%;
   max-width: 300px;
