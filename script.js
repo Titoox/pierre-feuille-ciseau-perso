@@ -113,3 +113,22 @@ function rejouer() {
   document.getElementById("icones").style.display = "flex";
   document.getElementById("affichage-choix").style.display = "none";
 }
+
+// ============================================================
+// MODALE RÈGLES
+// ============================================================
+document.getElementById("regles").addEventListener("click", function () {
+  document.getElementById("modal-regles").style.display = "flex";
+});
+
+document.getElementById("fermer-modal").addEventListener("click", function () {
+  document.getElementById("modal-regles").style.display = "none";
+});
+
+document
+  .getElementById("modal-regles")
+  .addEventListener("click", function (event) {
+    if (event.target === this) {
+      this.style.display = "none";
+    }
+  });

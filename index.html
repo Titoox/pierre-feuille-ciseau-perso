@@ -1,52 +1,62 @@
 <!doctype html>
 <html lang="fr">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@0,600;0,700&display=swap"
-			rel="stylesheet" />
-		<link rel="stylesheet" href="style.css" />
-		<title>Pierre Feuille Ciseaux</title>
-	</head>
-	<body>
-		<header>
-			<img src="logo.svg" alt="Logo du jeu Pierre Feuille Ciseaux" />
-			<div id="score-box">
-				<p id="texte-score">Score</p>
-				<p id="score">0</p>
-			</div>
-		</header>
-		<main>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@0,600;0,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Pierre Feuille Ciseaux</title>
+  </head>
+  <body>
+    <header>
+      <img src="logo.svg" alt="Logo du jeu Pierre Feuille Ciseaux" />
+      <div id="score-box">
+        <p id="texte-score">Score</p>
+        <p id="score">0</p>
+      </div>
+    </header>
+    <main>
+      <!-- Triangle de sélection — visible au départ -->
+      <div id="icones">
+        <div id="pierre"><img src="icon-rock.svg" alt="Pierre" /></div>
+        <div id="feuille"><img src="icon-paper.svg" alt="Feuille" /></div>
+        <div id="ciseaux"><img src="icon-scissors.svg" alt="Ciseaux" /></div>
+      </div>
 
-			<!-- Triangle de sélection — visible au départ -->
-			<div id="icones">
-				<div id="pierre"><img src="icon-rock.svg" alt="Pierre" /></div>
-				<div id="feuille"><img src="icon-paper.svg" alt="Feuille" /></div>
-				<div id="ciseaux"><img src="icon-scissors.svg" alt="Ciseaux" /></div>
-			</div>
-
-			<!-- Résultat d'une manche — caché au départ -->
-			<div id="affichage-choix">
-				<div id="choix-joueur">
-					<p>Ton choix</p>
-					<div id="icone-joueur"></div>
-				</div>
-				<div id="zone-resultat">
-					<p id="resultat"></p>
-					<p id="resultat-final"></p>
-					<button id="rejouer">Rejouer</button>
-				</div>
-				<div id="choix-ordi">
-					<p>Ordi</p>
-					<div id="icone-ordi"></div>
-				</div>
-			</div>
-
-		</main>
-		<button id="regles">Règles</button>
-		<script src="script.js"></script>
-	</body>
+      <!-- Résultat d'une manche — caché au départ -->
+      <div id="affichage-choix">
+        <div id="choix-joueur">
+          <p>Ton choix</p>
+          <div id="icone-joueur"></div>
+        </div>
+        <div id="zone-resultat">
+          <p id="resultat"></p>
+          <p id="resultat-final"></p>
+          <button id="rejouer">Rejouer</button>
+        </div>
+        <div id="choix-ordi">
+          <p>Ordinateur</p>
+          <div id="icone-ordi"></div>
+        </div>
+      </div>
+    </main>
+    <button id="regles">Règles</button>
+    <div id="modal-regles">
+      <div id="modal-contenu">
+        <div id="modal-header">
+          <h2>RÈGLES</h2>
+          <button id="fermer-modal">
+            <img src="icon-close.svg" alt="Fermer" />
+          </button>
+        </div>
+        <img src="image-rules.svg" alt="Règles du jeu" id="image-regles" />
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
 </html>

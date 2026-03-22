@@ -5,13 +5,19 @@
   --couleur-pierre: hsl(349, 70%, 56%);
   --couleur-feuille: hsl(230, 89%, 62%);
   --couleur-ciseaux: hsl(39, 89%, 53%);
-  --bg-dark: hsl(237, 49%, 15%);
   --bg-card: hsl(229, 25%, 31%);
   --text-light: hsl(0, 0%, 100%);
   --shadow-pierre: 0 8px 0 hsl(349, 70%, 40%);
   --shadow-feuille: 0 8px 0 hsl(230, 89%, 45%);
   --shadow-ciseaux: 0 8px 0 hsl(39, 89%, 38%);
-  --shadow-icon: 0 8px 0 hsl(220, 20%, 75%);
+
+  --icon-size: 120px;
+  --icon-img: 70px;
+  --border-size: 8px;
+  --result-size: 120px;
+  --result-img: 70px;
+  --triangle: 300px;
+  --gap-result: 24px;
 }
 
 /* ============================================================
@@ -25,28 +31,38 @@
 
 body {
   min-height: 100vh;
+  min-height: 100dvh;
   font-family: "Barlow Semi Condensed", sans-serif;
   background: radial-gradient(
     ellipse at top,
     hsl(195, 50%, 26%),
-    hsl(216, 51%, 20%)
+    hsl(216, 51%, 18%)
   );
   color: var(--text-light);
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* ============================================================
    HEADER
    ============================================================ */
 header {
-  width: min(45%, 700px);
-  margin: 24px auto 0;
+  width: 90%;
+  max-width: 700px;
+  margin: 20px auto 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border: 2px solid rgba(255, 255, 255, 0.3);
-  padding: 16px 20px;
+  padding: 12px 16px;
   border-radius: 12px;
+  flex-shrink: 0;
+}
+
+header img {
+  width: 100px;
 }
 
 #score-box {
@@ -54,15 +70,15 @@ header {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   background-color: var(--text-light);
   border-radius: 10px;
   color: var(--bg-card);
 }
 
 #texte-score {
-  font-size: 13px;
+  font-size: 10px;
   letter-spacing: 2px;
   text-transform: uppercase;
   font-weight: 600;
@@ -70,22 +86,31 @@ header {
 }
 
 #score {
-  font-size: 52px;
+  font-size: 38px;
   font-weight: 700;
   line-height: 1;
   color: var(--bg-card);
 }
 
 /* ============================================================
-   ÉCRAN 1 — TRIANGLE DE CHOIX
+   MAIN
+   ============================================================ */
+main {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ============================================================
+   ÉCRAN 1 — TRIANGLE
    ============================================================ */
 #icones {
   position: relative;
-  width: 380px;
-  height: 380px;
-  top: 80px;
-  left: 50%;
-  transform: translateX(-50%);
+  width: var(--triangle);
+  height: var(--triangle);
   background-image: url("bg-triangle.svg");
   background-size: 75%;
   background-repeat: no-repeat;
@@ -98,8 +123,8 @@ header {
   position: absolute;
   cursor: pointer;
   background-color: var(--text-light);
-  width: 150px;
-  height: 150px;
+  width: var(--icon-size);
+  height: var(--icon-size);
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -110,27 +135,21 @@ header {
 #pierre img,
 #feuille img,
 #ciseaux img {
-  width: 85px;
+  width: var(--icon-img);
   pointer-events: none;
-}
-
-#pierre:hover,
-#feuille:hover,
-#ciseaux:hover {
-  transform: scale(1.08) translateX(var(--tx, 0));
 }
 
 #ciseaux {
   top: 0;
   right: 0;
-  border: 10px solid var(--couleur-ciseaux);
+  border: var(--border-size) solid var(--couleur-ciseaux);
   box-shadow: var(--shadow-ciseaux);
 }
 
 #feuille {
   top: 0;
   left: 0;
-  border: 10px solid var(--couleur-feuille);
+  border: var(--border-size) solid var(--couleur-feuille);
   box-shadow: var(--shadow-feuille);
 }
 
@@ -138,24 +157,32 @@ header {
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  border: 10px solid var(--couleur-pierre);
+  border: var(--border-size) solid var(--couleur-pierre);
   box-shadow: var(--shadow-pierre);
 }
 
-#pierre:hover {
-  transform: translateX(-50%) scale(1.08);
+@media (hover: hover) {
+  #feuille:hover,
+  #ciseaux:hover {
+    transform: scale(1.08);
+  }
+  #pierre:hover {
+    transform: translateX(-50%) scale(1.08);
+  }
 }
 
 /* ============================================================
-   ÉCRAN 2 — RÉSULTAT DE MANCHE
+   ÉCRAN 2 — RÉSULTAT
    ============================================================ */
 #affichage-choix {
   display: none;
   justify-content: center;
   align-items: center;
-  gap: 50px;
-  margin-top: 120px;
-  animation: fadeIn 0.3s ease;
+  gap: var(--gap-result);
+  padding: 24px 16px;
+  width: 100%;
+  max-width: 700px;
+  animation: fadeIn 0.35s ease;
 }
 
 @keyframes fadeIn {
@@ -174,12 +201,12 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
+  gap: 16px;
 }
 
 #choix-joueur p,
 #choix-ordi p {
-  font-size: 13px;
+  font-size: 11px;
   letter-spacing: 2px;
   text-transform: uppercase;
   font-weight: 600;
@@ -188,8 +215,8 @@ header {
 
 #icone-joueur,
 #icone-ordi {
-  width: 150px;
-  height: 150px;
+  width: var(--result-size);
+  height: var(--result-size);
   border-radius: 50%;
   background-color: var(--text-light);
   display: flex;
@@ -199,74 +226,66 @@ header {
 
 #icone-joueur img,
 #icone-ordi img {
-  width: 85px;
+  width: var(--result-img);
   pointer-events: none;
 }
 
-/* ============================================================
-   ZONE RÉSULTAT
-   ============================================================ */
 #zone-resultat {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
 }
 
 #resultat {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 700;
   letter-spacing: 1px;
   opacity: 0.9;
 }
 
 #resultat-final {
-  font-size: 36px;
+  font-size: 32px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 2px;
 }
 
 /* ============================================================
-   BOUTON REJOUER
+   BOUTONS
    ============================================================ */
 #rejouer {
   display: none;
-  padding: 14px 52px;
+  padding: 13px 44px;
   border-radius: 8px;
   background-color: var(--text-light);
   color: var(--bg-card);
   border: none;
   cursor: pointer;
-  font-size: 15px;
+  font-size: 14px;
   font-family: "Barlow Semi Condensed", sans-serif;
   letter-spacing: 2px;
   font-weight: 600;
   text-transform: uppercase;
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease;
+  transition: background-color 0.2s ease;
 }
 
 #rejouer:hover {
   background-color: hsl(229, 25%, 85%);
 }
 
-/* ============================================================
-   BOUTON RÈGLES
-   ============================================================ */
 #regles {
   position: fixed;
-  bottom: 24px;
-  right: 24px;
+  bottom: 20px;
+  right: 20px;
   cursor: pointer;
   border: 2px solid rgba(255, 255, 255, 0.4);
-  padding: 12px 28px;
+  padding: 11px 24px;
   border-radius: 8px;
   color: var(--text-light);
   background: transparent;
   font-family: "Barlow Semi Condensed", sans-serif;
-  font-size: 14px;
+  font-size: 13px;
   letter-spacing: 2px;
   text-transform: uppercase;
   font-weight: 600;
@@ -278,17 +297,334 @@ header {
 }
 
 /* ============================================================
-   CLASSES DE BORDURES COLORÉES
+   BORDURES COLORÉES
    ============================================================ */
 .border-pierre {
-  border: 10px solid var(--couleur-pierre);
+  border: var(--border-size) solid var(--couleur-pierre);
   box-shadow: var(--shadow-pierre);
 }
 .border-feuille {
-  border: 10px solid var(--couleur-feuille);
+  border: var(--border-size) solid var(--couleur-feuille);
   box-shadow: var(--shadow-feuille);
 }
 .border-ciseaux {
-  border: 10px solid var(--couleur-ciseaux);
+  border: var(--border-size) solid var(--couleur-ciseaux);
   box-shadow: var(--shadow-ciseaux);
+}
+
+/* ============================================================
+   MOBILE PORTRAIT — max 480px
+   ============================================================ */
+@media (max-width: 480px) {
+  :root {
+    --icon-size: 100px;
+    --icon-img: 58px;
+    --border-size: 7px;
+    --result-size: 100px;
+    --result-img: 58px;
+    --triangle: 260px;
+    --gap-result: 12px;
+  }
+
+  header {
+    margin-top: 16px;
+    padding: 10px 14px;
+  }
+  header img {
+    width: 80px;
+  }
+  #score-box {
+    width: 68px;
+    height: 68px;
+  }
+  #texte-score {
+    font-size: 9px;
+  }
+  #score {
+    font-size: 30px;
+  }
+
+  #affichage-choix {
+    flex-wrap: wrap;
+    padding: 20px 12px;
+  }
+  #zone-resultat {
+    order: 3;
+    width: 100%;
+  }
+  #choix-joueur,
+  #choix-ordi {
+    flex-direction: column-reverse;
+  }
+  #resultat {
+    font-size: 17px;
+  }
+  #resultat-final {
+    font-size: 26px;
+  }
+  #rejouer {
+    padding: 12px 36px;
+    font-size: 13px;
+  }
+  #regles {
+    padding: 9px 18px;
+    font-size: 11px;
+    bottom: 14px;
+    right: 14px;
+  }
+}
+
+/* ============================================================
+   MOBILE PAYSAGE — 480px à 768px
+   ============================================================ */
+@media (min-width: 480px) and (max-width: 768px) {
+  :root {
+    --icon-size: 110px;
+    --icon-img: 64px;
+    --border-size: 7px;
+    --result-size: 110px;
+    --result-img: 64px;
+    --triangle: 270px;
+    --gap-result: 20px;
+  }
+
+  header {
+    width: 85%;
+  }
+  header img {
+    width: 90px;
+  }
+  #score-box {
+    width: 72px;
+    height: 72px;
+  }
+  #score {
+    font-size: 32px;
+  }
+  #affichage-choix {
+    flex-wrap: nowrap;
+  }
+  #resultat {
+    font-size: 18px;
+  }
+  #resultat-final {
+    font-size: 28px;
+  }
+}
+
+/* ============================================================
+   IPAD PORTRAIT — 768px à 1024px
+   ============================================================ */
+@media (min-width: 768px) and (max-width: 1024px) {
+  :root {
+    --icon-size: 160px;
+    --icon-img: 95px;
+    --border-size: 10px;
+    --result-size: 150px;
+    --result-img: 88px;
+    --triangle: 400px;
+    --gap-result: 40px;
+  }
+
+  header {
+    width: 75%;
+    margin-top: 28px;
+    padding: 16px 22px;
+  }
+  header img {
+    width: 140px;
+  }
+  #score-box {
+    width: 100px;
+    height: 100px;
+  }
+  #texte-score {
+    font-size: 12px;
+  }
+  #score {
+    font-size: 48px;
+  }
+  #affichage-choix {
+    gap: 40px;
+    padding: 40px 20px;
+  }
+  #choix-joueur p,
+  #choix-ordi p {
+    font-size: 13px;
+  }
+  #resultat {
+    font-size: 22px;
+  }
+  #resultat-final {
+    font-size: 36px;
+  }
+  #rejouer {
+    padding: 15px 52px;
+    font-size: 15px;
+  }
+  #regles {
+    padding: 13px 28px;
+    font-size: 14px;
+  }
+}
+
+/* ============================================================
+   IPAD PAYSAGE — 1024px à 1200px
+   ============================================================ */
+@media (min-width: 1024px) and (max-width: 1200px) {
+  :root {
+    --icon-size: 155px;
+    --icon-img: 90px;
+    --border-size: 10px;
+    --result-size: 145px;
+    --result-img: 85px;
+    --triangle: 380px;
+    --gap-result: 50px;
+  }
+
+  header {
+    width: 60%;
+    margin-top: 28px;
+  }
+  header img {
+    width: 130px;
+  }
+  #score-box {
+    width: 96px;
+    height: 96px;
+  }
+  #score {
+    font-size: 46px;
+  }
+  #affichage-choix {
+    flex-wrap: nowrap;
+    gap: 50px;
+  }
+  #resultat {
+    font-size: 22px;
+  }
+  #resultat-final {
+    font-size: 38px;
+  }
+}
+
+/* ============================================================
+   DESKTOP — 1200px+
+   ============================================================ */
+@media (min-width: 1200px) {
+  :root {
+    --icon-size: 170px;
+    --icon-img: 100px;
+    --border-size: 10px;
+    --result-size: 155px;
+    --result-img: 90px;
+    --triangle: 420px;
+    --gap-result: 60px;
+  }
+
+  header {
+    width: 50%;
+    max-width: 650px;
+    margin-top: 32px;
+    padding: 18px 24px;
+  }
+  header img {
+    width: 150px;
+  }
+  #score-box {
+    width: 110px;
+    height: 110px;
+  }
+  #texte-score {
+    font-size: 13px;
+  }
+  #score {
+    font-size: 54px;
+  }
+  #affichage-choix {
+    flex-wrap: nowrap;
+    gap: 60px;
+    padding: 60px 20px;
+  }
+  #choix-joueur p,
+  #choix-ordi p {
+    font-size: 14px;
+  }
+  #resultat {
+    font-size: 24px;
+  }
+  #resultat-final {
+    font-size: 42px;
+  }
+  #rejouer {
+    padding: 16px 58px;
+    font-size: 16px;
+  }
+  #regles {
+    padding: 14px 32px;
+    font-size: 15px;
+    bottom: 28px;
+    right: 28px;
+  }
+}
+
+/* ============================================================
+   MODALE RÈGLES
+   ============================================================ */
+#modal-regles {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.25s ease;
+}
+
+#modal-contenu {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  width: min(90%, 420px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+#modal-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#modal-header h2 {
+  color: hsl(229, 25%, 31%);
+  font-size: 24px;
+  letter-spacing: 3px;
+}
+
+#fermer-modal {
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.2s ease;
+  padding: 4px;
+}
+
+#fermer-modal:hover {
+  opacity: 1;
+}
+
+#fermer-modal img {
+  width: 20px;
+}
+
+#image-regles {
+  width: 100%;
+  max-width: 300px;
 }
