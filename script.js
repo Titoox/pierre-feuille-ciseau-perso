@@ -1,10 +1,13 @@
 // ============================================================
 // VARIABLES GLOBALES
 // ============================================================
-let score = 0;
 let manches = 0;
 let victoiresJoueur = 0;
 let victoiresOrdinateur = 0;
+
+// Score global persistant (localStorage)
+let scoreGlobal = parseInt(localStorage.getItem("scoreGlobal")) || 0;
+document.getElementById("score").textContent = scoreGlobal;
 
 // ============================================================
 // ÉCOUTEURS D'ÉVÉNEMENTS
@@ -15,107 +18,106 @@ document.getElementById("ciseaux").addEventListener("click", jouer);
 document.getElementById("rejouer").addEventListener("click", rejouer);
 
 // ============================================================
-// FONCTION JOUER — appelée à chaque clic sur un choix
+// FONCTION JOUER
 // ============================================================
 function jouer(event) {
   // 1. Compter la manche et afficher l'écran de résultat
   manches++;
   document.getElementById("icones").style.display = "none";
   document.getElementById("affichage-choix").style.display = "flex";
+  document.getElementById("compteur-manches").style.display = "none";
 
   // 2. Récupérer les choix
   const choixJoueur = event.currentTarget.id;
   const options = ["pierre", "feuille", "ciseaux"];
   const choixOrdinateur = options[Math.floor(Math.random() * 3)];
+
+  // 3. Afficher les icônes
   const icones = {
     pierre: "icon-rock.svg",
     feuille: "icon-paper.svg",
     ciseaux: "icon-scissors.svg",
   };
   document.getElementById("icone-joueur").innerHTML =
-    `<img src="${icones[choixJoueur]}">`;
+    '<img src="' + icones[choixJoueur] + '">';
   document.getElementById("icone-ordi").innerHTML =
-    `<img src="${icones[choixOrdinateur]}">`;
+    '<img src="' + icones[choixOrdinateur] + '">';
 
-  if (choixJoueur === "pierre") {
-    document.getElementById("icone-joueur").className = "border-pierre";
-  } else if (choixJoueur === "feuille") {
-    document.getElementById("icone-joueur").className = "border-feuille";
-  } else {
-    document.getElementById("icone-joueur").className = "border-ciseaux";
-  }
+  // Bordures colorées
+  const classes = {
+    pierre: "border-pierre",
+    feuille: "border-feuille",
+    ciseaux: "border-ciseaux",
+  };
+  document.getElementById("icone-joueur").className = classes[choixJoueur];
+  document.getElementById("icone-ordi").className = classes[choixOrdinateur];
 
-  if (choixOrdinateur === "pierre") {
-    document.getElementById("icone-ordi").className = "border-pierre";
-  } else if (choixOrdinateur === "feuille") {
-    document.getElementById("icone-ordi").className = "border-feuille";
-  } else {
-    document.getElementById("icone-ordi").className = "border-ciseaux";
-  }
-  // 3. Comparer et mettre à jour le score
-  // === vérifie que les deux valeurs sont exactement égales
-  // && = ET  |  || = OU
+  // 4. Comparer et mettre à jour
   if (choixJoueur === choixOrdinateur) {
-    document.getElementById("resultat").textContent = "Égalité";
+    document.getElementById("resultat").textContent = "Egalite";
   } else if (
     (choixJoueur === "pierre" && choixOrdinateur === "ciseaux") ||
     (choixJoueur === "feuille" && choixOrdinateur === "pierre") ||
     (choixJoueur === "ciseaux" && choixOrdinateur === "feuille")
   ) {
-    document.getElementById("resultat").textContent = "Gagné !";
-    score++;
+    document.getElementById("resultat").textContent = "Gagne !";
     victoiresJoueur++;
+    scoreGlobal++;
   } else {
     document.getElementById("resultat").textContent = "Perdu !";
-    score--;
     victoiresOrdinateur++;
+    scoreGlobal--;
   }
 
-  // 4. Mettre à jour le score affiché
-  document.getElementById("score").textContent = score;
+  // Mise a jour score global
+  localStorage.setItem("scoreGlobal", scoreGlobal);
+  document.getElementById("score").textContent = scoreGlobal;
 
-  // 5. Après 3 manches : afficher le résultat final + bouton rejouer
-  if (manches === 3) {
+  // 5. Verifier fin de partie (3 manches OU victoire anticipee a 2)
+  const partieTerminee =
+    manches === 3 || victoiresJoueur === 2 || victoiresOrdinateur === 2;
+
+  if (partieTerminee) {
     document.getElementById("rejouer").style.display = "block";
 
     if (victoiresJoueur > victoiresOrdinateur) {
-      document.getElementById("resultat-final").textContent =
-        "Victoire du joueur !";
+      document.getElementById("resultat-final").textContent = "Victoire !";
     } else if (victoiresOrdinateur > victoiresJoueur) {
-      document.getElementById("resultat-final").textContent =
-        "Victoire de l'ordinateur !";
+      document.getElementById("resultat-final").textContent = "Defaite...";
     } else {
-      document.getElementById("resultat-final").textContent =
-        "Égalité générale !";
+      document.getElementById("resultat-final").textContent = "Egalite !";
     }
-  }
-  if (manches < 3) {
+  } else {
+    // Retour au triangle apres 2 secondes
     setTimeout(function () {
       document.getElementById("icones").style.display = "flex";
       document.getElementById("affichage-choix").style.display = "none";
-    }, 2000); // 2000 = 2 secondes
+      document.getElementById("compteur-manches").textContent =
+        "Manche " + (manches + 1) + " / 3";
+      document.getElementById("compteur-manches").style.display = "block";
+    }, 2000);
   }
 }
 
 // ============================================================
-// FONCTION REJOUER — remet tout à zéro
+// FONCTION REJOUER
 // ============================================================
 function rejouer() {
-  score = 0;
   manches = 0;
   victoiresJoueur = 0;
   victoiresOrdinateur = 0;
 
-  document.getElementById("score").textContent = 0;
   document.getElementById("resultat").textContent = "";
   document.getElementById("resultat-final").textContent = "";
   document.getElementById("rejouer").style.display = "none";
   document.getElementById("icones").style.display = "flex";
   document.getElementById("affichage-choix").style.display = "none";
+  document.getElementById("compteur-manches").textContent = "Manche 1 / 3";
+  document.getElementById("compteur-manches").style.display = "block";
 }
 
 // ============================================================
-// MODALE RÈGLES
+// MODALE REGLES
 // ============================================================
 document.getElementById("regles").addEventListener("click", function () {
   document.getElementById("modal-regles").style.display = "flex";
